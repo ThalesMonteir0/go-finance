@@ -1,11 +1,13 @@
 package entity
 
+import "financial-go/pkg/rest_err"
+
 type UserRepositoryInterface interface {
-	Save(user Users) error
-	FindUserByCellphone(cel string) (*Users, error)
-	DeleteUserByCellphone(cel string) error
+	Save(user Users) *rest_err.RestErr
+	FindUserByCellphone(cel string) (*Users, *rest_err.RestErr)
+	DeleteUserByCellphone(cel string) *rest_err.RestErr
 }
 
 type FixedAccountInterface interface {
-	Save(account FixedAccounts) error
+	Save(account FixedAccounts) *rest_err.RestErr
 }

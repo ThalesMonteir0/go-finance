@@ -2,6 +2,7 @@ package usecase
 
 import (
 	"financial-go/internal/entity"
+	"financial-go/pkg/rest_err"
 	"time"
 )
 
@@ -34,7 +35,7 @@ func NewCreateFixedAccount(repository entity.FixedAccountInterface) *CreateFixed
 	}
 }
 
-func (c *CreateFixedAccount) Execute(account FixedAccountDTO) error {
+func (c *CreateFixedAccount) Execute(account FixedAccountDTO) *rest_err.RestErr {
 	fixedAccountEntity := entity.NewFixedAccount(
 		account.Name,
 		account.Desc,
