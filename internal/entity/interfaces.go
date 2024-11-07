@@ -10,4 +10,5 @@ type UserRepositoryInterface interface {
 
 type FixedAccountInterface interface {
 	Save(account FixedAccounts) *rest_err.RestErr
+	FindAllFixedAccount(userID int) ([]FixedAccounts, *rest_err.RestErr)
 }
