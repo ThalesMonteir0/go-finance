@@ -5,3 +5,7 @@ type UserRepositoryInterface interface {
 	FindUserByCellphone(cel string) (*Users, error)
 	DeleteUserByCellphone(cel string) error
 }
+
+type FixedAccountInterface interface {
+	Save(account FixedAccounts) error
+}
