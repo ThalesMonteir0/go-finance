@@ -14,3 +14,7 @@ type FixedAccountInterface interface {
 	DeleteFixedAccount(fixedAccountID int) *rest_err.RestErr
 	PaidFixedAccount(fixedAccountID int) *rest_err.RestErr
 }
+
+type MovementRepositoryInterface interface {
+	Save(movement Movements) *rest_err.RestErr
+}
