@@ -12,4 +12,5 @@ type FixedAccountInterface interface {
 	Save(account FixedAccounts) *rest_err.RestErr
 	FindAllFixedAccount(userID int) ([]FixedAccounts, *rest_err.RestErr)
 	DeleteFixedAccount(fixedAccountID int) *rest_err.RestErr
+	PaidFixedAccount(fixedAccountID int) *rest_err.RestErr
 }
