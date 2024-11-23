@@ -1,8 +1,9 @@
-package postgres
+package config
 
 import (
-	"database/sql"
 	"fmt"
+	"gorm.io/driver/postgres"
+	"gorm.io/gorm"
 	"os"
 )
 
@@ -13,7 +14,7 @@ const (
 	DB_PASSWORD = "DB_PASSWORD"
 )
 
-func OpenConnection() (*sql.DB, error) {
+func OpenConnection() (*gorm.DB, error) {
 	host := os.Getenv(DB_HOST)
 	port := os.Getenv(DB_PORT)
 	user := os.Getenv(DB_USER)
@@ -21,12 +22,10 @@ func OpenConnection() (*sql.DB, error) {
 
 	pgConnectionString := fmt.Sprintf("host=%s port=%s user=%s password=%s dbname=%s sslmode=disable", host, port, user, password)
 
-	db, err := sql.Open("postgres", pgConnectionString)
+	db, err := gorm.Open(postgres.Open(pgConnectionString), &gorm.Config{})
 	if err != nil {
 		return nil, err
 	}
-
-	err = db.Ping()
 
 	return db, err
 }
