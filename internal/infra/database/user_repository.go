@@ -15,16 +15,26 @@ func NewUserSaveRepository(db *gorm.DB) entity.UserRepositoryInterface {
 }
 
 func (u UserRepository) Save(user entity.Users) *rest_err.RestErr {
-	//TODO implement me
-	panic("implement me")
+	if err := u.db.Create(&user).Error; err != nil {
+		return rest_err.NewInternalServeError(err.Error())
+	}
+
+	return nil
 }
 
 func (u UserRepository) FindUserByCellphone(cel string) (*entity.Users, *rest_err.RestErr) {
-	//TODO implement me
-	panic("implement me")
+	var user entity.Users
+	if err := u.db.First(&user, "cel = ?", cel).Error; err != nil {
+		return &entity.Users{}, rest_err.NewBadRequestError(err.Error())
+	}
+
+	return &user, nil
 }
 
 func (u UserRepository) DeleteUserByCellphone(cel string) *rest_err.RestErr {
-	//TODO implement me
-	panic("implement me")
+	if err := u.db.Delete(&entity.Users{}, "cel =?", cel).Error; err != nil {
+		return rest_err.NewBadRequestError(err.Error())
+	}
+
+	return nil
 }
