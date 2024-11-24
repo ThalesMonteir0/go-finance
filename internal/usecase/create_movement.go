@@ -7,18 +7,20 @@ import (
 )
 
 type MovementDTO struct {
-	Type  entity.Types `json:"type"`
-	Value float64      `json:"value"`
-	Desc  string       `json:"desc"`
-	Date  time.Time    `json:"date"`
+	TypeID int     `json:"type"`
+	UserID int     `json:"user_id"`
+	Value  float64 `json:"value"`
+	Desc   string  `json:"desc"`
 }
 
 type MovementDTOResponse struct {
-	ID    int          `json:"id"`
-	Type  entity.Types `json:"type"`
-	Value float64      `json:"value"`
-	Desc  string       `json:"desc"`
-	Date  time.Time    `json:"date"`
+	ID        int       `json:"id"`
+	TypeID    int       `json:"type_id"`
+	UserID    int       `json:"user_id"`
+	Value     float64   `json:"value"`
+	Desc      string    `json:"desc"`
+	TypeName  string    `json:"type_name"`
+	CreatedAT time.Time `json:"created_at"`
 }
 
 type CreateMovementUseCase struct {
@@ -33,12 +35,10 @@ func NewCreateMovementUseCase(repository entity.MovementRepositoryInterface) *Cr
 
 func (c *CreateMovementUseCase) Execute(movement MovementDTO) *rest_err.RestErr {
 	movementEntity := entity.Movements{
-		Type: entity.Types{
-			ID: movement.Type.ID,
-		},
-		Value: movement.Value,
-		Desc:  movement.Desc,
-		Date:  movement.Date,
+		TypeID: movement.TypeID,
+		Value:  movement.Value,
+		Desc:   movement.Desc,
+		UserID: movement.UserID,
 	}
 
 	if err := c.repository.Save(movementEntity); err != nil {

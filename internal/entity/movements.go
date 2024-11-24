@@ -1,11 +1,14 @@
 package entity
 
-import "time"
+import (
+	"gorm.io/gorm"
+)
 
 type Movements struct {
-	ID    int
-	Type  Types
-	Value float64
-	Desc  string
-	Date  time.Time
+	gorm.Model
+	TypeID int
+	UserID int
+	Value  float64
+	Desc   string
+	Type   Types `gorm:"foreignKey:TypeID"`
 }

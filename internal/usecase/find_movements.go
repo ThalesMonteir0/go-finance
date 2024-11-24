@@ -15,20 +15,22 @@ func NewFindMovementsUseCase(repository entity.MovementRepositoryInterface) *Fin
 	}
 }
 
-func (f *FindMovementsUseCase) Execute() ([]MovementDTOResponse, *rest_err.RestErr) {
+func (f *FindMovementsUseCase) Execute(userID int) ([]MovementDTOResponse, *rest_err.RestErr) {
 	var movementsResponse []MovementDTOResponse
-	movements, err := f.repository.FindAllMovements()
+	movements, err := f.repository.FindAllMovements(userID)
 	if err != nil {
 		return nil, err
 	}
 
 	for _, movement := range movements {
 		movementResponse := MovementDTOResponse{
-			ID:    movement.ID,
-			Type:  movement.Type,
-			Value: movement.Value,
-			Desc:  movement.Desc,
-			Date:  movement.Date,
+			ID:        int(movement.ID),
+			UserID:    movement.UserID,
+			TypeID:    movement.TypeID,
+			Value:     movement.Value,
+			Desc:      movement.Desc,
+			CreatedAT: movement.CreatedAt,
+			TypeName:  movement.Type.TypeName,
 		}
 
 		movementsResponse = append(movementsResponse, movementResponse)
