@@ -1,9 +1,12 @@
 package entity
 
-import "time"
+import (
+	"gorm.io/gorm"
+	"time"
+)
 
 type FixedAccounts struct {
-	ID          int
+	gorm.Model
 	UserID      int
 	Name        string
 	Desc        string

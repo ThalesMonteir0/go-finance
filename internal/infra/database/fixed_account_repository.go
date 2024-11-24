@@ -17,21 +17,38 @@ func NewFixedAccountRepository(db *gorm.DB) entity.FixedAccountInterface {
 }
 
 func (f FixedAccountRepository) Save(account entity.FixedAccounts) *rest_err.RestErr {
-	//TODO implement me
-	panic("implement me")
+	if err := f.db.Create(&account).Error; err != nil {
+		return rest_err.NewBadRequestError(err.Error())
+	}
+
+	return nil
 }
 
 func (f FixedAccountRepository) FindAllFixedAccount(userID int) ([]entity.FixedAccounts, *rest_err.RestErr) {
-	//TODO implement me
-	panic("implement me")
+	var accounts []entity.FixedAccounts
+
+	if err := f.db.Find(&accounts, "id = ?", userID).Error; err != nil {
+		return []entity.FixedAccounts{}, rest_err.NewBadRequestError(err.Error())
+	}
+
+	return accounts, nil
 }
 
 func (f FixedAccountRepository) DeleteFixedAccount(fixedAccountID int) *rest_err.RestErr {
-	//TODO implement me
-	panic("implement me")
+	if err := f.db.Delete(&entity.FixedAccounts{}, fixedAccountID).Error; err != nil {
+		return rest_err.NewBadRequestError(err.Error())
+	}
+
+	return nil
 }
 
 func (f FixedAccountRepository) PaidFixedAccount(fixedAccountID int) *rest_err.RestErr {
-	//TODO implement me
-	panic("implement me")
+	if err := f.db.Model(&entity.FixedAccounts{}).
+		Where("id = ?", fixedAccountID).
+		Update("paid", true).
+		Error; err != nil {
+		return rest_err.NewBadRequestError(err.Error())
+	}
+
+	return nil
 }
