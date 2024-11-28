@@ -12,4 +12,5 @@ func InitRoutes(e *echo.Echo, userHandler handlers.UserHandler, fixedAccHandler 
 	e.POST("/fixedAccount", fixedAccHandler.CreateFixedAccount)
 	e.DELETE("/fixedAccount/:id", fixedAccHandler.DeleteFixedAccount)
 	e.PUT("/fixedAccount/paid/:id", fixedAccHandler.PaidFixedAccount)
+	e.GET("/fixedAccount/:userID", fixedAccHandler.FindAllFixedAccounts)
 }
