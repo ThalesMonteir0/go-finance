@@ -37,7 +37,7 @@ func (m MovementRepository) FindAllMovements(userID int) ([]entity.Movements, *r
 
 	if err := m.db.Model(&entity.Movements{}).
 		Preload("Types").
-		Find(&movements, userID).
+		Find(&movements, "userID = ?", userID).
 		Error; err != nil {
 		return []entity.Movements{}, rest_err.NewBadRequestError(err.Error())
 	}
