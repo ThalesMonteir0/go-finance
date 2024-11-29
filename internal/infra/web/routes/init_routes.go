@@ -20,4 +20,5 @@ func InitRoutes(
 	e.GET("/fixedAccount/:userID", fixedAccHandler.FindAllFixedAccounts)
 
 	e.POST("/movements", movementHandler.CreateMovement)
+	e.GET("/movements", movementHandler.FindAllMovements)
 }
