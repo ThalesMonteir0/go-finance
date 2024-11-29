@@ -5,7 +5,12 @@ import (
 	"github.com/labstack/echo/v4"
 )
 
-func InitRoutes(e *echo.Echo, userHandler handlers.UserHandler, fixedAccHandler handlers.FixedAccountHandler) {
+func InitRoutes(
+	e *echo.Echo,
+	userHandler handlers.UserHandler,
+	fixedAccHandler handlers.FixedAccountHandler,
+	movementHandler handlers.MovementHandler,
+) {
 	e.POST("/user", userHandler.CreateUser)
 	e.DELETE("/user/:cel", userHandler.DeleteUser)
 
@@ -13,4 +18,6 @@ func InitRoutes(e *echo.Echo, userHandler handlers.UserHandler, fixedAccHandler 
 	e.DELETE("/fixedAccount/:id", fixedAccHandler.DeleteFixedAccount)
 	e.PUT("/fixedAccount/paid/:id", fixedAccHandler.PaidFixedAccount)
 	e.GET("/fixedAccount/:userID", fixedAccHandler.FindAllFixedAccounts)
+
+	e.POST("/movements", movementHandler.CreateMovement)
 }
