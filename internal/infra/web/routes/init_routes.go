@@ -21,4 +21,5 @@ func InitRoutes(
 
 	e.POST("/movements", movementHandler.CreateMovement)
 	e.GET("/movements", movementHandler.FindAllMovements)
+	e.DELETE("/movements/:movementID", movementHandler.DeleteMovement)
 }
