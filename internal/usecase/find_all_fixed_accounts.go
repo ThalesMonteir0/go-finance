@@ -24,7 +24,7 @@ func (f *FindAllFixedAccounts) Execute(userID int) ([]FixedAccountDTOResponse, *
 
 	for _, fixedAccount := range fixedAccounts {
 		fixedAccountDTO := FixedAccountDTOResponse{
-			ID:          fixedAccount.ID,
+			ID:          int(fixedAccount.ID),
 			Name:        fixedAccount.Name,
 			Desc:        fixedAccount.Desc,
 			Value:       fixedAccount.Value,

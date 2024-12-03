@@ -20,7 +20,7 @@ func (f *FindUserByCelUseCase) Execute(cel string) (UserDTOResponse, *rest_err.R
 	}
 
 	userDTO := UserDTOResponse{
-		ID:    userEntity.ID,
+		ID:    int(userEntity.ID),
 		Name:  userEntity.Name,
 		Email: userEntity.Email,
 		Cel:   userEntity.Cel,

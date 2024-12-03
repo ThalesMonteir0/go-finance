@@ -27,7 +27,7 @@ func (f FixedAccountRepository) Save(account entity.FixedAccounts) *rest_err.Res
 func (f FixedAccountRepository) FindAllFixedAccount(userID int) ([]entity.FixedAccounts, *rest_err.RestErr) {
 	var accounts []entity.FixedAccounts
 
-	if err := f.db.Find(&accounts, "userID = ?", userID).Error; err != nil {
+	if err := f.db.Find(&accounts, "user_id = ?", userID).Error; err != nil {
 		return []entity.FixedAccounts{}, rest_err.NewBadRequestError(err.Error())
 	}
 

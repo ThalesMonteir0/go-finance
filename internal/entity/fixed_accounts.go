@@ -9,7 +9,7 @@ type FixedAccounts struct {
 	gorm.Model
 	UserID      int
 	Name        string
-	Desc        string
+	Desc        string `gorm:"column:description"`
 	Value       float64
 	PaymentDate time.Time
 	Paid        bool

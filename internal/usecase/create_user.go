@@ -6,10 +6,9 @@ import (
 )
 
 type UserDTO struct {
-	Name     string `json:"name"`
-	Email    string `json:"email"`
-	Cel      string `json:"cel"`
-	Password string `json:"password"`
+	Name  string `json:"name"`
+	Email string `json:"email"`
+	Cel   string `json:"cel"`
 }
 
 type UserDTOResponse struct {
@@ -28,7 +27,7 @@ func NewCreateUserUseCase(repository entity.UserRepositoryInterface) *CreateUser
 }
 
 func (c *CreateUserUseCase) Execute(user UserDTO) *rest_err.RestErr {
-	userEntity := entity.NewUserEntity(user.Name, user.Email, user.Cel, user.Password)
+	userEntity := entity.NewUserEntity(user.Name, user.Email, user.Cel)
 
 	if err := c.Repository.Save(*userEntity); err != nil {
 		return err

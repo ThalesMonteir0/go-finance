@@ -9,6 +9,6 @@ type Movements struct {
 	TypeID int
 	UserID int
 	Value  float64
-	Desc   string
-	Type   Types `gorm:"foreignKey:TypeID"`
+	Desc   string `gorm:"column: description"`
+	Type   Types  `gorm:"foreignKey:TypeID"`
 }

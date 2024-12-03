@@ -10,7 +10,7 @@ type UserRepository struct {
 	db *gorm.DB
 }
 
-func NewUserSaveRepository(db *gorm.DB) entity.UserRepositoryInterface {
+func NewUserRepository(db *gorm.DB) entity.UserRepositoryInterface {
 	return &UserRepository{db: db}
 }
 
