@@ -7,7 +7,7 @@ import (
 )
 
 type MovementDTO struct {
-	TypeID int     `json:"type"`
+	TypeID int     `json:"type_id"`
 	UserID int     `json:"user_id"`
 	Value  float64 `json:"value"`
 	Desc   string  `json:"desc"`

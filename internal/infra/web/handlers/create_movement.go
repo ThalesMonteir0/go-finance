@@ -20,6 +20,8 @@ func NewMovementHandler(repo entity.MovementRepositoryInterface) MovementHandler
 
 func (m *MovementHandler) CreateMovement(c echo.Context) error {
 	var movementDTO usecase.MovementDTO
+	movementDTO.UserID = int(c.Get("userID").(uint))
+
 	if err := c.Bind(&movementDTO); err != nil {
 		restErr := rest_err.NewBadRequestError("invalid body")
 		return c.JSON(restErr.Code, restErr.Message)
