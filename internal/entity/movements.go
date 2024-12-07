@@ -6,7 +6,7 @@ import (
 
 type Movements struct {
 	gorm.Model
-	TypeID int
+	TypeID int `gorm:"column:type_id"`
 	UserID int
 	Value  float64
 	Desc   string `gorm:"column:description"`

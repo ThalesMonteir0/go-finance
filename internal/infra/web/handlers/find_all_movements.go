@@ -7,7 +7,7 @@ import (
 )
 
 func (m *MovementHandler) FindAllMovements(c echo.Context) error {
-	userID := c.Get("userID").(int)
+	userID := int(c.Get("userID").(uint))
 	findAllMovementsUseCase := usecase.NewFindMovementsUseCase(m.repository)
 
 	movements, err := findAllMovementsUseCase.Execute(userID)
