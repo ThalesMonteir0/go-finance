@@ -9,7 +9,7 @@ import (
 func (u *UserHandler) DeleteUser(c echo.Context) error {
 	userID := c.Param("cel")
 
-	deleteUserUseCase := usecase.NewDeleteUserUseCase(u.userRepository)
+	deleteUserUseCase := usecase.NewDeleteUserUseCase(u.UserRepository)
 
 	if err := deleteUserUseCase.Execute(userID); err != nil {
 		return c.JSON(err.Code, echo.Map{"error": err.Message})
