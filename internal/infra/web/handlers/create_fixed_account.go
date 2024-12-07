@@ -20,6 +20,9 @@ func NewFixedAccountHandler(repo entity.FixedAccountInterface) FixedAccountHandl
 
 func (f *FixedAccountHandler) CreateFixedAccount(c echo.Context) error {
 	var fixedAccount usecase.FixedAccountDTO
+	UserID := c.Get("userID").(uint)
+	fixedAccount.UserID = int(UserID)
+
 	if err := c.Bind(&fixedAccount); err != nil {
 		errRest := rest_err.NewBadRequestError(err.Error())
 		return c.JSON(errRest.Code, errRest.Message)
