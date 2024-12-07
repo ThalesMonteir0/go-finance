@@ -17,6 +17,6 @@ type FixedAccountInterface interface {
 
 type MovementRepositoryInterface interface {
 	Save(movement Movements) *rest_err.RestErr
-	DeleteMovementByID(movementID int) *rest_err.RestErr
+	DeleteMovementByID(movementID, userID int) *rest_err.RestErr
 	FindAllMovements(userID int) ([]Movements, *rest_err.RestErr)
 }

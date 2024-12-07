@@ -24,8 +24,8 @@ func (m MovementRepository) Save(movement entity.Movements) *rest_err.RestErr {
 	return nil
 }
 
-func (m MovementRepository) DeleteMovementByID(movementID int) *rest_err.RestErr {
-	if err := m.db.Delete(&entity.Movements{}, movementID).Error; err != nil {
+func (m MovementRepository) DeleteMovementByID(movementID, userID int) *rest_err.RestErr {
+	if err := m.db.Delete(&entity.Movements{}, "id = ? and user_id = ?", movementID, userID).Error; err != nil {
 		return rest_err.NewBadRequestError(err.Error())
 	}
 

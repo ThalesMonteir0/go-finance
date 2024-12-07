@@ -10,6 +10,7 @@ import (
 
 func (m *MovementHandler) DeleteMovement(c echo.Context) error {
 	movementID, err := strconv.Atoi(c.Param("movementID"))
+	userID := int(c.Get("userID").(uint))
 	if err != nil {
 		restErr := rest_err.NewBadRequestError("invalid movementID")
 		return c.JSON(restErr.Code, restErr.Message)
@@ -17,7 +18,7 @@ func (m *MovementHandler) DeleteMovement(c echo.Context) error {
 
 	deleteUseCase := usecase.NewDeleteMovementUseCase(m.repository)
 
-	if err := deleteUseCase.Execute(movementID); err != nil {
+	if err := deleteUseCase.Execute(movementID, userID); err != nil {
 		return c.JSON(err.Code, err.Message)
 	}
 

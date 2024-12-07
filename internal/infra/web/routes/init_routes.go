@@ -21,5 +21,5 @@ func InitRoutes(
 
 	e.POST("/movements", handlers.JwtMiddleware(movementHandler.CreateMovement, handlers.SomeErrorHandler, userHandler.UserRepository))
 	e.GET("/movements", handlers.JwtMiddleware(movementHandler.FindAllMovements, handlers.SomeErrorHandler, userHandler.UserRepository))
-	e.DELETE("/movements/:movementID", movementHandler.DeleteMovement)
+	e.DELETE("/movements/:movementID", handlers.JwtMiddleware(movementHandler.DeleteMovement, handlers.SomeErrorHandler, userHandler.UserRepository))
 }

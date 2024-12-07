@@ -15,8 +15,8 @@ func NewDeleteMovementUseCase(repository entity.MovementRepositoryInterface) *De
 	}
 }
 
-func (d *DeleteMovementUseCase) Execute(movementID int) *rest_err.RestErr {
-	if err := d.repository.DeleteMovementByID(movementID); err != nil {
+func (d *DeleteMovementUseCase) Execute(movementID, userID int) *rest_err.RestErr {
+	if err := d.repository.DeleteMovementByID(movementID, userID); err != nil {
 		return err
 	}
 
