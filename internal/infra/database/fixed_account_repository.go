@@ -42,9 +42,9 @@ func (f FixedAccountRepository) DeleteFixedAccount(fixedAccountID, userID int) *
 	return nil
 }
 
-func (f FixedAccountRepository) PaidFixedAccount(fixedAccountID int) *rest_err.RestErr {
+func (f FixedAccountRepository) PaidFixedAccount(fixedAccountID, userID int) *rest_err.RestErr {
 	if err := f.db.Model(&entity.FixedAccounts{}).
-		Where("id = ?", fixedAccountID).
+		Where("id = ? and user_id = ?", fixedAccountID, userID).
 		Update("paid", true).
 		Error; err != nil {
 		return rest_err.NewBadRequestError(err.Error())

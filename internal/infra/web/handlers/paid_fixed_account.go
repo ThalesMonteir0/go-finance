@@ -10,6 +10,8 @@ import (
 
 func (f *FixedAccountHandler) PaidFixedAccount(c echo.Context) error {
 	fixedAccountID, err := strconv.Atoi(c.Param("id"))
+	userID := int(c.Get("userID").(uint))
+
 	if err != nil {
 		restErr := rest_err.NewBadRequestError("invalid ID")
 		return c.JSON(restErr.Code, restErr.Message)
@@ -17,7 +19,7 @@ func (f *FixedAccountHandler) PaidFixedAccount(c echo.Context) error {
 
 	paidUseCase := usecase.NewPayFixedAccountUseCase(f.repository)
 
-	if err := paidUseCase.Execute(fixedAccountID); err != nil {
+	if err := paidUseCase.Execute(fixedAccountID, userID); err != nil {
 		return c.JSON(err.Code, err.Message)
 	}
 

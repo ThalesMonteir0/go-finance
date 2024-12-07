@@ -16,7 +16,7 @@ func InitRoutes(
 
 	e.POST("/fixedAccount", handlers.JwtMiddleware(fixedAccHandler.CreateFixedAccount, handlers.SomeErrorHandler, userHandler.UserRepository))
 	e.DELETE("/fixedAccount/:id", handlers.JwtMiddleware(fixedAccHandler.DeleteFixedAccount, handlers.SomeErrorHandler, userHandler.UserRepository))
-	e.PUT("/fixedAccount/paid/:id", fixedAccHandler.PaidFixedAccount)
+	e.PUT("/fixedAccount/paid/:id", handlers.JwtMiddleware(fixedAccHandler.PaidFixedAccount, handlers.SomeErrorHandler, userHandler.UserRepository))
 	e.GET("/fixedAccount/:userID", fixedAccHandler.FindAllFixedAccounts)
 
 	e.POST("/movements", movementHandler.CreateMovement)

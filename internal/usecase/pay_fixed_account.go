@@ -15,8 +15,8 @@ func NewPayFixedAccountUseCase(repository entity.FixedAccountInterface) *PayFixe
 	}
 }
 
-func (p *PayFixedAccountUseCase) Execute(fixedAccountID int) *rest_err.RestErr {
-	if err := p.repository.PaidFixedAccount(fixedAccountID); err != nil {
+func (p *PayFixedAccountUseCase) Execute(fixedAccountID, userID int) *rest_err.RestErr {
+	if err := p.repository.PaidFixedAccount(fixedAccountID, userID); err != nil {
 		return err
 	}
 
