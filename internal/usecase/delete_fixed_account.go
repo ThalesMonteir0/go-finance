@@ -15,8 +15,8 @@ func NewDeleteFixedAccountUseCase(repository entity.FixedAccountInterface) *Dele
 	}
 }
 
-func (d *DeleteFixedAccountUseCase) Execute(fixedAccountID int) *rest_err.RestErr {
-	if err := d.repository.DeleteFixedAccount(fixedAccountID); err != nil {
+func (d *DeleteFixedAccountUseCase) Execute(fixedAccountID, userID int) *rest_err.RestErr {
+	if err := d.repository.DeleteFixedAccount(fixedAccountID, userID); err != nil {
 		return err
 	}
 

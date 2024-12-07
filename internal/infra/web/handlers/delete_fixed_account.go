@@ -10,13 +10,15 @@ import (
 
 func (f *FixedAccountHandler) DeleteFixedAccount(c echo.Context) error {
 	fixedAccountID, err := strconv.Atoi(c.Param("id"))
+	userID := int(c.Get("userID").(uint))
+
 	if err != nil {
 		restErr := rest_err.NewBadRequestError("invalid id")
 		return c.JSON(restErr.Code, restErr.Message)
 	}
 
 	deleteUseCase := usecase.NewDeleteFixedAccountUseCase(f.repository)
-	if err := deleteUseCase.Execute(fixedAccountID); err != nil {
+	if err := deleteUseCase.Execute(fixedAccountID, userID); err != nil {
 		return c.JSON(err.Code, err.Message)
 	}
 

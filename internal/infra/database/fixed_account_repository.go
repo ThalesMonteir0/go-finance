@@ -34,8 +34,8 @@ func (f FixedAccountRepository) FindAllFixedAccount(userID int) ([]entity.FixedA
 	return accounts, nil
 }
 
-func (f FixedAccountRepository) DeleteFixedAccount(fixedAccountID int) *rest_err.RestErr {
-	if err := f.db.Delete(&entity.FixedAccounts{}, fixedAccountID).Error; err != nil {
+func (f FixedAccountRepository) DeleteFixedAccount(fixedAccountID, userID int) *rest_err.RestErr {
+	if err := f.db.Delete(&entity.FixedAccounts{}, "id = ? and user_id = ?", fixedAccountID, userID).Error; err != nil {
 		return rest_err.NewBadRequestError(err.Error())
 	}
 
