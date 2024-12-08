@@ -3,26 +3,25 @@ package usecase
 import (
 	"financial-go/internal/entity"
 	"financial-go/pkg/rest_err"
-	"time"
 )
 
 type FixedAccountDTO struct {
-	Name        string    `json:"name"`
-	Desc        string    `json:"desc"`
-	Value       float64   `json:"value"`
-	PaymentDate time.Time `json:"payment_date"`
-	Paid        bool      `json:"paid"`
-	UserID      int       `json:"user_id"`
+	Name        string  `json:"name"`
+	Desc        string  `json:"desc"`
+	Value       float64 `json:"value"`
+	PaymentDate int     `json:"payment_date"`
+	Paid        bool    `json:"paid"`
+	UserID      int     `json:"user_id"`
 }
 
 type FixedAccountDTOResponse struct {
-	ID          int       `json:"id"`
-	Name        string    `json:"name"`
-	Desc        string    `json:"desc"`
-	Value       float64   `json:"value"`
-	PaymentDate time.Time `json:"payment_date"`
-	Paid        bool      `json:"paid"`
-	UserID      int       `json:"user_id"`
+	ID          int     `json:"id"`
+	Name        string  `json:"name"`
+	Desc        string  `json:"desc"`
+	Value       float64 `json:"value"`
+	PaymentDate int     `json:"payment_date"`
+	Paid        bool    `json:"paid"`
+	UserID      int     `json:"user_id"`
 }
 
 type CreateFixedAccount struct {
