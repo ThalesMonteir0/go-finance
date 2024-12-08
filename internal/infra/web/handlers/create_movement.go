@@ -24,14 +24,14 @@ func (m *MovementHandler) CreateMovement(c echo.Context) error {
 
 	if err := c.Bind(&movementDTO); err != nil {
 		restErr := rest_err.NewBadRequestError("invalid body")
-		return c.JSON(restErr.Code, restErr.Message)
+		return c.JSON(restErr.Code, NewResponseDataErr(restErr.Message))
 	}
 
 	createMovement := usecase.NewCreateMovementUseCase(m.repository)
 
 	if err := createMovement.Execute(movementDTO); err != nil {
-		return c.JSON(err.Code, err.Message)
+		return c.JSON(err.Code, NewResponseDataErr(err.Message))
 	}
 
-	return c.JSON(http.StatusCreated, "movement created")
+	return c.JSON(http.StatusCreated, NewResponseDataSuccess("movement created"))
 }

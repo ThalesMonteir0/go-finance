@@ -13,14 +13,15 @@ func (m *MovementHandler) DeleteMovement(c echo.Context) error {
 	userID := int(c.Get("userID").(uint))
 	if err != nil {
 		restErr := rest_err.NewBadRequestError("invalid movementID")
-		return c.JSON(restErr.Code, restErr.Message)
+		return c.JSON(restErr.Code, NewResponseDataErr(restErr.Message))
 	}
 
 	deleteUseCase := usecase.NewDeleteMovementUseCase(m.repository)
 
 	if err := deleteUseCase.Execute(movementID, userID); err != nil {
-		return c.JSON(err.Code, err.Message)
+		return c.JSON(err.Code, NewResponseDataErr(err.Message))
+
 	}
 
-	return c.JSON(http.StatusOK, "movement deleted.")
+	return c.JSON(http.StatusOK, NewResponseDataSuccess("movement deleted."))
 }

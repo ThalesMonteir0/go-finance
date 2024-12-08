@@ -12,8 +12,8 @@ func (m *MovementHandler) FindAllMovements(c echo.Context) error {
 
 	movements, err := findAllMovementsUseCase.Execute(userID)
 	if err != nil {
-		return c.JSON(err.Code, err.Message)
+		return c.JSON(err.Code, NewResponseDataErr(err.Message))
 	}
 
-	return c.JSON(http.StatusOK, movements)
+	return c.JSON(http.StatusOK, NewResponseDataSuccessWithData(movements, "find all movements with success"))
 }
