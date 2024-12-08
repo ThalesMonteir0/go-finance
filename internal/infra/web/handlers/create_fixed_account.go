@@ -25,14 +25,14 @@ func (f *FixedAccountHandler) CreateFixedAccount(c echo.Context) error {
 
 	if err := c.Bind(&fixedAccount); err != nil {
 		errRest := rest_err.NewBadRequestError(err.Error())
-		return c.JSON(errRest.Code, errRest.Message)
+		return c.JSON(errRest.Code, NewResponseDataErr(errRest.Message))
 	}
 
 	createFixedAccountUseCase := usecase.NewCreateFixedAccount(f.repository)
 
 	if err := createFixedAccountUseCase.Execute(fixedAccount); err != nil {
-		return c.JSON(err.Code, err.Message)
+		return c.JSON(err.Code, NewResponseDataErr(err.Message))
 	}
 
-	return c.JSON(http.StatusCreated, "fixed account created with success")
+	return c.JSON(http.StatusCreated, NewResponseDataSuccess("fixed account created with success"))
 }

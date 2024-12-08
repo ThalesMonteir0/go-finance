@@ -14,13 +14,13 @@ func (f *FixedAccountHandler) DeleteFixedAccount(c echo.Context) error {
 
 	if err != nil {
 		restErr := rest_err.NewBadRequestError("invalid id")
-		return c.JSON(restErr.Code, restErr.Message)
+		return c.JSON(restErr.Code, NewResponseDataErr(restErr.Message))
 	}
 
 	deleteUseCase := usecase.NewDeleteFixedAccountUseCase(f.repository)
 	if err := deleteUseCase.Execute(fixedAccountID, userID); err != nil {
-		return c.JSON(err.Code, err.Message)
+		return c.JSON(err.Code, NewResponseDataErr(err.Message))
 	}
 
-	return c.JSON(http.StatusOK, "fixed account deleted with success")
+	return c.JSON(http.StatusOK, NewResponseDataSuccess("fixed account deleted with success"))
 }

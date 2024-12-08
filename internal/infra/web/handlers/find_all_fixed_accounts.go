@@ -12,9 +12,8 @@ func (f *FixedAccountHandler) FindAllFixedAccounts(c echo.Context) error {
 	findFixedAccountsUseCase := usecase.NewFindAllFixedAccountsUsecase(f.repository)
 	fixedAccounts, err := findFixedAccountsUseCase.Execute(userID)
 	if err != nil {
-		return c.JSON(err.Code, err.Message)
+		return c.JSON(err.Code, NewResponseDataErr(err.Message))
 	}
 
-	return c.JSON(http.StatusOK, fixedAccounts)
-
+	return c.JSON(http.StatusOK, NewResponseDataSuccessWithData(fixedAccounts, "get all movements with success"))
 }
