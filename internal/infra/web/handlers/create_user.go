@@ -22,14 +22,14 @@ func (u *UserHandler) CreateUser(c echo.Context) error {
 	var user usecase.UserDTO
 	if err := c.Bind(&user); err != nil {
 		errRest := rest_err.NewBadRequestError(err.Error())
-		return c.JSON(errRest.Code, echo.Map{"error": errRest.Message})
+		return c.JSON(errRest.Code, NewResponseDataErr(errRest.Message))
 	}
 
 	createUserUseCase := usecase.NewCreateUserUseCase(u.UserRepository)
 
 	if err := createUserUseCase.Execute(user); err != nil {
-		return c.JSON(err.Code, echo.Map{"error": err.Message})
+		return c.JSON(err.Code, NewResponseDataErr(err.Message))
 	}
 
-	return c.JSON(http.StatusCreated, echo.Map{"success": "user created!"})
+	return c.JSON(http.StatusCreated, NewResponseDataSuccess("user created!"))
 }
