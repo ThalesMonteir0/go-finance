@@ -1,4 +1,4 @@
-package usecase
+package users
 
 import (
 	"financial-go/internal/entity"
@@ -18,15 +18,21 @@ type UserDTOResponse struct {
 	Cel   string `json:"cel"`
 }
 
-type CreateUserUseCase struct {
+type userUseCase struct {
 	Repository entity.UserRepositoryInterface
 }
 
-func NewCreateUserUseCase(repository entity.UserRepositoryInterface) *CreateUserUseCase {
-	return &CreateUserUseCase{Repository: repository}
+type UserUseCaseInterface interface {
+	Create(user UserDTO) *rest_err.RestErr
+	Delete(cellphone string) *rest_err.RestErr
+	FindByCellphone(cell string) (UserDTOResponse, *rest_err.RestErr)
 }
 
-func (c *CreateUserUseCase) Execute(user UserDTO) *rest_err.RestErr {
+func NewCreateUserUseCase(repository entity.UserRepositoryInterface) UserUseCaseInterface {
+	return &userUseCase{Repository: repository}
+}
+
+func (c *userUseCase) Create(user UserDTO) *rest_err.RestErr {
 	userEntity := entity.NewUserEntity(user.Name, user.Email, user.Cel)
 
 	if err := c.Repository.Save(*userEntity); err != nil {
