@@ -10,11 +10,13 @@ import (
 
 type UserHandler struct {
 	UserRepository entity.UserRepositoryInterface
+	UserUseCase    users.UserUseCaseInterface
 }
 
-func NewUserHandler(userRepo entity.UserRepositoryInterface) UserHandler {
+func NewUserHandler(userRepo entity.UserRepositoryInterface, userUseCase users.UserUseCaseInterface) UserHandler {
 	return UserHandler{
 		UserRepository: userRepo,
+		UserUseCase:    userUseCase,
 	}
 }
 
@@ -25,9 +27,7 @@ func (u *UserHandler) CreateUser(c echo.Context) error {
 		return c.JSON(errRest.Code, NewResponseDataErr(errRest.Message))
 	}
 
-	createUserUseCase := users.NewCreateUserUseCase(u.UserRepository)
-
-	if err := createUserUseCase.Execute(user); err != nil {
+	if err := u.UserUseCase.Create(user); err != nil {
 		return c.JSON(err.Code, NewResponseDataErr(err.Message))
 	}
 
