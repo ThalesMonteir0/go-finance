@@ -1,4 +1,4 @@
-package usecase
+package fixed_account
 
 import (
 	"financial-go/internal/entity"
@@ -24,17 +24,24 @@ type FixedAccountDTOResponse struct {
 	UserID      int     `json:"user_id"`
 }
 
-type CreateFixedAccount struct {
+type fixedAccountUseCase struct {
 	repository entity.FixedAccountInterface
 }
 
-func NewCreateFixedAccount(repository entity.FixedAccountInterface) *CreateFixedAccount {
-	return &CreateFixedAccount{
+type FixedAccountUseCaseInterface interface {
+	CreateFixedAccount(FixedAccountDTO) *rest_err.RestErr
+	DeleteFixedAccount(fixedAccountID, userID int) *rest_err.RestErr
+	FindAllFixedAccounts(userID int) ([]FixedAccountDTOResponse, *rest_err.RestErr)
+	PayFixedAccount(fixedAccountID, userID int) *rest_err.RestErr
+}
+
+func NewCreateFixedAccount(repository entity.FixedAccountInterface) FixedAccountUseCaseInterface {
+	return &fixedAccountUseCase{
 		repository: repository,
 	}
 }
 
-func (c *CreateFixedAccount) Execute(account FixedAccountDTO) *rest_err.RestErr {
+func (c *fixedAccountUseCase) CreateFixedAccount(account FixedAccountDTO) *rest_err.RestErr {
 	fixedAccountEntity := entity.NewFixedAccount(
 		account.Name,
 		account.Desc,
