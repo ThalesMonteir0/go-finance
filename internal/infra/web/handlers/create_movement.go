@@ -1,25 +1,24 @@
 package handlers
 
 import (
-	"financial-go/internal/entity"
-	"financial-go/internal/usecase"
+	"financial-go/internal/usecase/movement"
 	"financial-go/pkg/rest_err"
 	"github.com/labstack/echo/v4"
 	"net/http"
 )
 
 type MovementHandler struct {
-	repository entity.MovementRepositoryInterface
+	movementUseCase movement.MovementUseCaseInterface
 }
 
-func NewMovementHandler(repo entity.MovementRepositoryInterface) MovementHandler {
+func NewMovementHandler(useCase movement.MovementUseCaseInterface) MovementHandler {
 	return MovementHandler{
-		repository: repo,
+		movementUseCase: useCase,
 	}
 }
 
 func (m *MovementHandler) CreateMovement(c echo.Context) error {
-	var movementDTO usecase.MovementDTO
+	var movementDTO movement.MovementDTO
 	movementDTO.UserID = int(c.Get("userID").(uint))
 
 	if err := c.Bind(&movementDTO); err != nil {
@@ -27,9 +26,7 @@ func (m *MovementHandler) CreateMovement(c echo.Context) error {
 		return c.JSON(restErr.Code, NewResponseDataErr(restErr.Message))
 	}
 
-	createMovement := usecase.NewCreateMovementUseCase(m.repository)
-
-	if err := createMovement.Execute(movementDTO); err != nil {
+	if err := m.movementUseCase.Create(movementDTO); err != nil {
 		return c.JSON(err.Code, NewResponseDataErr(err.Message))
 	}
 

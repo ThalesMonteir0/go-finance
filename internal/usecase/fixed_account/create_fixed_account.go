@@ -35,7 +35,7 @@ type FixedAccountUseCaseInterface interface {
 	PayFixedAccount(fixedAccountID, userID int) *rest_err.RestErr
 }
 
-func NewCreateFixedAccount(repository entity.FixedAccountInterface) FixedAccountUseCaseInterface {
+func NewFixedAccount(repository entity.FixedAccountInterface) FixedAccountUseCaseInterface {
 	return &fixedAccountUseCase{
 		repository: repository,
 	}

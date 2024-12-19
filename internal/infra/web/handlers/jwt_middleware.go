@@ -2,9 +2,10 @@ package handlers
 
 import (
 	"errors"
-	"financial-go/internal/entity"
+	"financial-go/internal/infra/database"
 	"github.com/golang-jwt/jwt/v5"
 	"github.com/labstack/echo/v4"
+	"gorm.io/gorm"
 	"net/http"
 	"os"
 	"strings"
@@ -14,12 +15,14 @@ const (
 	SECRET_KEY = "SECRET_KEY"
 )
 
-func JwtMiddleware(next, stop echo.HandlerFunc, userRepo entity.UserRepositoryInterface) echo.HandlerFunc {
+func JwtMiddleware(next, stop echo.HandlerFunc, db *gorm.DB) echo.HandlerFunc {
 	return func(c echo.Context) error {
 		err, celNumber := validJwtAndReturnCelClaim(c)
 		if err != nil {
 			return stop(c)
 		}
+
+		userRepo := database.NewUserRepository(db)
 
 		user, errFind := userRepo.FindUserByCellphone(celNumber)
 		if errFind != nil {

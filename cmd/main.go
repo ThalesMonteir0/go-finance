@@ -5,6 +5,9 @@ import (
 	"financial-go/internal/infra/database/config"
 	"financial-go/internal/infra/web/handlers"
 	"financial-go/internal/infra/web/routes"
+	"financial-go/internal/usecase/fixed_account"
+	"financial-go/internal/usecase/movement"
+	"financial-go/internal/usecase/users"
 	"github.com/joho/godotenv"
 	"github.com/labstack/echo/v4"
 	"gorm.io/gorm"
@@ -36,9 +39,13 @@ func injectAndInitRoutes(e *echo.Echo, db *gorm.DB) {
 	movementRepo := database.NewMovementRepository(db)
 	fixedAccountRepo := database.NewFixedAccountRepository(db)
 
-	userHandler := handlers.NewUserHandler(userRepo)
-	movementHandler := handlers.NewMovementHandler(movementRepo)
-	fixedAccountHandler := handlers.NewFixedAccountHandler(fixedAccountRepo)
+	userUseCase := users.NewUserUseCase(userRepo)
+	movementUseCase := movement.NewMovementUseCase(movementRepo)
+	fixedAccountUseCase := fixed_account.NewFixedAccount(fixedAccountRepo)
 
-	routes.InitRoutes(e, userHandler, fixedAccountHandler, movementHandler)
+	userHandler := handlers.NewUserHandler(userUseCase)
+	movementHandler := handlers.NewMovementHandler(movementUseCase)
+	fixedAccountHandler := handlers.NewFixedAccountHandler(fixedAccountUseCase)
+
+	routes.InitRoutes(e, userHandler, fixedAccountHandler, movementHandler, db)
 }

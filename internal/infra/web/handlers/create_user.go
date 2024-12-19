@@ -1,7 +1,6 @@
 package handlers
 
 import (
-	"financial-go/internal/entity"
 	"financial-go/internal/usecase/users"
 	"financial-go/pkg/rest_err"
 	"github.com/labstack/echo/v4"
@@ -9,14 +8,12 @@ import (
 )
 
 type UserHandler struct {
-	UserRepository entity.UserRepositoryInterface
-	UserUseCase    users.UserUseCaseInterface
+	UserUseCase users.UserUseCaseInterface
 }
 
-func NewUserHandler(userRepo entity.UserRepositoryInterface, userUseCase users.UserUseCaseInterface) UserHandler {
+func NewUserHandler(userUseCase users.UserUseCaseInterface) UserHandler {
 	return UserHandler{
-		UserRepository: userRepo,
-		UserUseCase:    userUseCase,
+		UserUseCase: userUseCase,
 	}
 }
 

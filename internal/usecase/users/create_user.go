@@ -28,7 +28,7 @@ type UserUseCaseInterface interface {
 	FindByCellphone(cell string) (UserDTOResponse, *rest_err.RestErr)
 }
 
-func NewCreateUserUseCase(repository entity.UserRepositoryInterface) UserUseCaseInterface {
+func NewUserUseCase(repository entity.UserRepositoryInterface) UserUseCaseInterface {
 	return &userUseCase{Repository: repository}
 }
 

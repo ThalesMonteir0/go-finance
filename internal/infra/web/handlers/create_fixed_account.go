@@ -1,7 +1,6 @@
 package handlers
 
 import (
-	"financial-go/internal/entity"
 	"financial-go/internal/usecase/fixed_account"
 	"financial-go/pkg/rest_err"
 	"github.com/labstack/echo/v4"
@@ -9,13 +8,12 @@ import (
 )
 
 type FixedAccountHandler struct {
-	repository          entity.FixedAccountInterface
 	fixedAccountUseCase fixed_account.FixedAccountUseCaseInterface
 }
 
-func NewFixedAccountHandler(repo entity.FixedAccountInterface) FixedAccountHandler {
+func NewFixedAccountHandler(useCase fixed_account.FixedAccountUseCaseInterface) FixedAccountHandler {
 	return FixedAccountHandler{
-		repository: repo,
+		fixedAccountUseCase: useCase,
 	}
 }
 
