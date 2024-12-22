@@ -1,7 +1,6 @@
 package handlers
 
 import (
-	"financial-go/internal/usecase"
 	"financial-go/pkg/rest_err"
 	"github.com/labstack/echo/v4"
 	"net/http"
@@ -18,9 +17,7 @@ func (f *FixedAccountHandler) PaidFixedAccount(c echo.Context) error {
 
 	}
 
-	paidUseCase := usecase.NewPayFixedAccountUseCase(f.repository)
-
-	if err := paidUseCase.Execute(fixedAccountID, userID); err != nil {
+	if err := f.fixedAccountUseCase.PayFixedAccount(fixedAccountID, userID); err != nil {
 		return c.JSON(err.Code, NewResponseDataErr(err.Message))
 	}
 

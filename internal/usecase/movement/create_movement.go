@@ -1,4 +1,4 @@
-package usecase
+package movement
 
 import (
 	"financial-go/internal/entity"
@@ -23,17 +23,23 @@ type MovementDTOResponse struct {
 	CreatedAT time.Time `json:"created_at"`
 }
 
-type CreateMovementUseCase struct {
+type movementUseCase struct {
 	repository entity.MovementRepositoryInterface
 }
 
-func NewCreateMovementUseCase(repository entity.MovementRepositoryInterface) *CreateMovementUseCase {
-	return &CreateMovementUseCase{
+type MovementUseCaseInterface interface {
+	Create(MovementDTO) *rest_err.RestErr
+	DeleteMovement(movementID, userID int) *rest_err.RestErr
+	FindMovements(userID int) ([]MovementDTOResponse, *rest_err.RestErr)
+}
+
+func NewMovementUseCase(repository entity.MovementRepositoryInterface) MovementUseCaseInterface {
+	return &movementUseCase{
 		repository: repository,
 	}
 }
 
-func (c *CreateMovementUseCase) Execute(movement MovementDTO) *rest_err.RestErr {
+func (c *movementUseCase) Create(movement MovementDTO) *rest_err.RestErr {
 	movementEntity := entity.Movements{
 		TypeID: movement.TypeID,
 		Value:  movement.Value,

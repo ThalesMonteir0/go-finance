@@ -1,7 +1,6 @@
 package handlers
 
 import (
-	"financial-go/internal/usecase"
 	"github.com/labstack/echo/v4"
 	"net/http"
 )
@@ -9,11 +8,10 @@ import (
 func (f *FixedAccountHandler) FindAllFixedAccounts(c echo.Context) error {
 	userID := int(c.Get("userID").(uint))
 
-	findFixedAccountsUseCase := usecase.NewFindAllFixedAccountsUsecase(f.repository)
-	fixedAccounts, err := findFixedAccountsUseCase.Execute(userID)
+	fixedAccounts, err := f.fixedAccountUseCase.FindAllFixedAccounts(userID)
 	if err != nil {
 		return c.JSON(err.Code, NewResponseDataErr(err.Message))
 	}
 
-	return c.JSON(http.StatusOK, NewResponseDataSuccessWithData(fixedAccounts, "get all movements with success"))
+	return c.JSON(http.StatusOK, NewResponseDataSuccessWithData(fixedAccounts, "get all fixed accounts with success"))
 }

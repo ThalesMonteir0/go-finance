@@ -1,21 +1,10 @@
-package usecase
+package fixed_account
 
 import (
-	"financial-go/internal/entity"
 	"financial-go/pkg/rest_err"
 )
 
-type FindAllFixedAccounts struct {
-	repository entity.FixedAccountInterface
-}
-
-func NewFindAllFixedAccountsUsecase(repository entity.FixedAccountInterface) *FindAllFixedAccounts {
-	return &FindAllFixedAccounts{
-		repository: repository,
-	}
-}
-
-func (f *FindAllFixedAccounts) Execute(userID int) ([]FixedAccountDTOResponse, *rest_err.RestErr) {
+func (f *fixedAccountUseCase) FindAllFixedAccounts(userID int) ([]FixedAccountDTOResponse, *rest_err.RestErr) {
 	var fixedAccountResponse []FixedAccountDTOResponse
 	fixedAccounts, err := f.repository.FindAllFixedAccount(userID)
 	if err != nil {

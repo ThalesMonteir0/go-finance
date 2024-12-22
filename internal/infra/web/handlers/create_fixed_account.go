@@ -1,25 +1,24 @@
 package handlers
 
 import (
-	"financial-go/internal/entity"
-	"financial-go/internal/usecase"
+	"financial-go/internal/usecase/fixed_account"
 	"financial-go/pkg/rest_err"
 	"github.com/labstack/echo/v4"
 	"net/http"
 )
 
 type FixedAccountHandler struct {
-	repository entity.FixedAccountInterface
+	fixedAccountUseCase fixed_account.FixedAccountUseCaseInterface
 }
 
-func NewFixedAccountHandler(repo entity.FixedAccountInterface) FixedAccountHandler {
+func NewFixedAccountHandler(useCase fixed_account.FixedAccountUseCaseInterface) FixedAccountHandler {
 	return FixedAccountHandler{
-		repository: repo,
+		fixedAccountUseCase: useCase,
 	}
 }
 
 func (f *FixedAccountHandler) CreateFixedAccount(c echo.Context) error {
-	var fixedAccount usecase.FixedAccountDTO
+	var fixedAccount fixed_account.FixedAccountDTO
 	UserID := c.Get("userID").(uint)
 	fixedAccount.UserID = int(UserID)
 
@@ -28,9 +27,7 @@ func (f *FixedAccountHandler) CreateFixedAccount(c echo.Context) error {
 		return c.JSON(errRest.Code, NewResponseDataErr(errRest.Message))
 	}
 
-	createFixedAccountUseCase := usecase.NewCreateFixedAccount(f.repository)
-
-	if err := createFixedAccountUseCase.Execute(fixedAccount); err != nil {
+	if err := f.fixedAccountUseCase.CreateFixedAccount(fixedAccount); err != nil {
 		return c.JSON(err.Code, NewResponseDataErr(err.Message))
 	}
 

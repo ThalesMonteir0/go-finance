@@ -1,21 +1,10 @@
-package usecase
+package movement
 
 import (
-	"financial-go/internal/entity"
 	"financial-go/pkg/rest_err"
 )
 
-type FindMovementsUseCase struct {
-	repository entity.MovementRepositoryInterface
-}
-
-func NewFindMovementsUseCase(repository entity.MovementRepositoryInterface) *FindMovementsUseCase {
-	return &FindMovementsUseCase{
-		repository: repository,
-	}
-}
-
-func (f *FindMovementsUseCase) Execute(userID int) ([]MovementDTOResponse, *rest_err.RestErr) {
+func (f *movementUseCase) FindMovements(userID int) ([]MovementDTOResponse, *rest_err.RestErr) {
 	var movementsResponse []MovementDTOResponse
 	movements, err := f.repository.FindAllMovements(userID)
 	if err != nil {
