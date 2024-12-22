@@ -31,8 +31,9 @@ type fixedAccountUseCase struct {
 type FixedAccountUseCaseInterface interface {
 	CreateFixedAccount(FixedAccountDTO) *rest_err.RestErr
 	DeleteFixedAccount(fixedAccountID, userID int) *rest_err.RestErr
-	FindAllFixedAccounts(userID int) ([]FixedAccountDTOResponse, *rest_err.RestErr)
+	FindAllFixedAccountsByUserID(userID int) ([]FixedAccountDTOResponse, *rest_err.RestErr)
 	PayFixedAccount(fixedAccountID, userID int) *rest_err.RestErr
+	FindAll() ([]FixedAccountDTOResponse, *rest_err.RestErr)
 }
 
 func NewFixedAccount(repository entity.FixedAccountInterface) FixedAccountUseCaseInterface {
