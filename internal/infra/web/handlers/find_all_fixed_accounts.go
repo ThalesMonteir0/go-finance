@@ -13,5 +13,5 @@ func (f *FixedAccountHandler) FindAllFixedAccounts(c echo.Context) error {
 		return c.JSON(err.Code, NewResponseDataErr(err.Message))
 	}
 
-	return c.JSON(http.StatusOK, NewResponseDataSuccessWithData(fixedAccounts, "get all movements with success"))
+	return c.JSON(http.StatusOK, NewResponseDataSuccessWithData(fixedAccounts, "get all fixed accounts with success"))
 }
