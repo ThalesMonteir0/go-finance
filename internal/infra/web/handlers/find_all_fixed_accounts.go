@@ -8,7 +8,7 @@ import (
 func (f *FixedAccountHandler) FindAllFixedAccounts(c echo.Context) error {
 	userID := int(c.Get("userID").(uint))
 
-	fixedAccounts, err := f.fixedAccountUseCase.FindAllFixedAccounts(userID)
+	fixedAccounts, err := f.FixedAccountUseCase.FindAllFixedAccountsByUserID(userID)
 	if err != nil {
 		return c.JSON(err.Code, NewResponseDataErr(err.Message))
 	}

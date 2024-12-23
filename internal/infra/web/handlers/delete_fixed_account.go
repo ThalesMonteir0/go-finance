@@ -16,7 +16,7 @@ func (f *FixedAccountHandler) DeleteFixedAccount(c echo.Context) error {
 		return c.JSON(restErr.Code, NewResponseDataErr(restErr.Message))
 	}
 
-	if err := f.fixedAccountUseCase.DeleteFixedAccount(fixedAccountID, userID); err != nil {
+	if err := f.FixedAccountUseCase.DeleteFixedAccount(fixedAccountID, userID); err != nil {
 		return c.JSON(err.Code, NewResponseDataErr(err.Message))
 	}
 

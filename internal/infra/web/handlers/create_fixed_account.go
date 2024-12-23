@@ -8,12 +8,12 @@ import (
 )
 
 type FixedAccountHandler struct {
-	fixedAccountUseCase fixed_account.FixedAccountUseCaseInterface
+	FixedAccountUseCase fixed_account.FixedAccountUseCaseInterface
 }
 
 func NewFixedAccountHandler(useCase fixed_account.FixedAccountUseCaseInterface) FixedAccountHandler {
 	return FixedAccountHandler{
-		fixedAccountUseCase: useCase,
+		FixedAccountUseCase: useCase,
 	}
 }
 
@@ -27,7 +27,7 @@ func (f *FixedAccountHandler) CreateFixedAccount(c echo.Context) error {
 		return c.JSON(errRest.Code, NewResponseDataErr(errRest.Message))
 	}
 
-	if err := f.fixedAccountUseCase.CreateFixedAccount(fixedAccount); err != nil {
+	if err := f.FixedAccountUseCase.CreateFixedAccount(fixedAccount); err != nil {
 		return c.JSON(err.Code, NewResponseDataErr(err.Message))
 	}
 
