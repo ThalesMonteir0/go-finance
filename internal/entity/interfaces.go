@@ -13,7 +13,7 @@ type FixedAccountInterface interface {
 	FindAllFixedAccountByUserID(userID int) ([]FixedAccounts, *rest_err.RestErr)
 	FindAllFixedAccount() ([]FixedAccounts, *rest_err.RestErr)
 	DeleteFixedAccount(fixedAccountID, userID int) *rest_err.RestErr
-	PaidFixedAccount(fixedAccountID, userID int) *rest_err.RestErr
+	PaidFixedAccount(fixedAccountID, userID int, paid bool) *rest_err.RestErr
 }
 
 type MovementRepositoryInterface interface {
