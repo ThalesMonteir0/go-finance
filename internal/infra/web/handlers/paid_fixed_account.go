@@ -17,7 +17,7 @@ func (f *FixedAccountHandler) PaidFixedAccount(c echo.Context) error {
 
 	}
 
-	if err := f.FixedAccountUseCase.UpdatePaymentFixedAccount(fixedAccountID, userID, false); err != nil {
+	if err := f.FixedAccountUseCase.UpdatePaymentFixedAccount(fixedAccountID, userID, true); err != nil {
 		return c.JSON(err.Code, NewResponseDataErr(err.Message))
 	}
 

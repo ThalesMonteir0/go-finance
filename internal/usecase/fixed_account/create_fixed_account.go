@@ -9,7 +9,7 @@ type FixedAccountDTO struct {
 	Name        string  `json:"name"`
 	Desc        string  `json:"desc"`
 	Value       float64 `json:"value"`
-	PaymentDate int     `json:"payment_date"`
+	PaymentDate int     `json:"paymentDay"`
 	Paid        bool    `json:"paid"`
 	UserID      int     `json:"user_id"`
 }
